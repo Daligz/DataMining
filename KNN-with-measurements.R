@@ -4,7 +4,6 @@ check_length = function(a, b) {
   return(res)
 }
 
-
 euclidean_distance = function(a, b) {
   check_length(a, b)
   sqrt(sum((a - b)^2))
