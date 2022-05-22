@@ -6,7 +6,7 @@ check_length = function(a, b) {
 
 euclidean_distance = function(a, b) {
   check_length(a, b)
-  sqrt(sum((a - b)^2))
+  sqrt(sum((a - b) ^ 2))
 }
 
 euclidean_distance(1:10, 11:20)
@@ -16,4 +16,14 @@ manhattan_distance = function(a, b) {
   sum(abs(a - b))
 }
 
-euclidean_distance(1:10, 11:20)
+manhattan_distance(1:10, 11:20)
+
+minkowski_distance = function(a, b, p) {
+  check_length(a, b)
+  if (p <= 0) stop('p, no puede ser menor o igual a 0')
+  sum(abs(a - b) ^ p) ^ (1 / p)
+}
+
+minkowski_distance(1:10, 11:20, 1)
+minkowski_distance(1:10, 11:20, 2)
+
