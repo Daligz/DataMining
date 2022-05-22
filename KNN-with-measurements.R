@@ -27,3 +27,25 @@ minkowski_distance = function(a, b, p) {
 minkowski_distance(1:10, 11:20, 1)
 minkowski_distance(1:10, 11:20, 2)
 
+# Characters
+hamming_distance_v1 = function(a, b) {
+  check_length(a, b)
+  sum(a != b)
+}
+
+hamming_distance_v2 = function(a, b) {
+  library(dplyr)
+  library(stringr)
+  
+  strA = strsplit("hola", "") #nchar("hola")
+  strB = strsplit("hola", "") #nchar("hola")
+  print(strA)
+  check_length(strA, strB)
+  for (val in strA) {
+    print(val)
+  }
+}
+
+hamming_distance_v1('hola', 'hola')
+#hamming_distance_v2('hola', 'hola'
+
