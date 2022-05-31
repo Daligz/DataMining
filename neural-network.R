@@ -114,3 +114,18 @@ coste <- function(Yp,Yr){
   y[[2]] <- (Yp-Yr)
   return(y)
 }
+
+# Back Propagation
+
+delta <- list() 
+
+for (i in rev(1:length(red))){
+  z = out[[i+1]][[1]]
+  a = out[[i+1]][[2]]
+  
+  if(i == length(red)){
+    delta[[1]] <- coste(a,Y)[[2]] * red[[i]]$fun_act[[1]](a)[[2]]
+  } else{
+    delta <- list(delta[[1]] %*% t(red[[i]]$W) * red[[i]]$fun_act[[1]](a)[[2]],delta)
+  }
+}
