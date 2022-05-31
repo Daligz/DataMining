@@ -1,3 +1,5 @@
+# Problema de clasificacion
+
 circulo <- function(x, R, centroX=0, centroY=0){
   r = R * sqrt(runif(x))
   theta = runif(x) * 2 * pi
@@ -19,3 +21,8 @@ rm(datos1,datos2, circulo)
 
 library(ggplot2)
 ggplot(datos,aes(x,y, col = as.factor(Y))) + geom_point()
+
+X <- as.matrix(datos[,1:2])
+Y <- as.matrix(datos[,3])
+
+rm(datos)
