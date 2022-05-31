@@ -62,3 +62,14 @@ sigmoid = function(x) {
 
 x <- seq(-5, 5, 0.01)
 plot(x, sigmoid(x)[[1]], col='blue')
+
+# Funcion relu
+
+relu <- function(x){
+  y <- list()
+  y[[1]] <- ifelse(x<0,0,x)
+  y[[2]] <- ifelse(x<0,0,1)
+  return(y)
+}
+
+plot(x, relu(x)[[1]], col='blue')
