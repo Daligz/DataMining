@@ -73,3 +73,35 @@ relu <- function(x){
 }
 
 plot(x, relu(x)[[1]], col='blue')
+
+# Capas de red
+
+n = ncol(X) #Núm de neuronas en la primera capa
+capas = c(n, 4, 8, 1) # Número de neuronas en cada capa.
+funciones = list(sigmoid, relu, sigmoid) # Función de activación en cada capa
+
+red <- list()
+
+for (i in 1:(length(capas)-1)){
+  red[[i]] <- neurona$new(funciones[i],capas[i], capas[i+1])
+}
+
+red
+
+# Entrenamiento
+
+entrenar <- function(red, X,Y, coste){
+  
+  out = list()
+  out[[1]] <- append(list(matrix(0,ncol=2,nrow=1)), list(X))
+  
+  for(i in c(1:(length(red)))){
+    z = list((out[[length(out)]][[2]] %*% red[[i]]$W + red[[i]]$b))
+    a = list(red[[i]]$fun_act[[1]](z[[1]])[[1]])
+    out[[i+1]] <- append(z,a)
+  }
+  return(out)
+}
+
+forward <- entrenar(red, X,Y, coste)
+head(forward[[4]][[2]])
