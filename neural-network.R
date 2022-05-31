@@ -190,3 +190,30 @@ red_neuronal <- function(red, X,Y, coste,lr = 0.05){
   return(out[[length(out)]][[2]])
   
 }
+
+resultado <- red_neuronal(red, X,Y, coste)
+dim(resultado)
+
+
+for(i in seq(1000)){
+  
+  Yt = red_neuronal(red, X,Y, coste, lr=0.01)
+  
+  if(i %% 25 == 0){
+    if(i == 25){
+      iteracion <- i
+      error <- coste(Yt,Y)[[1]]
+    }else{
+      iteracion <- c(iteracion,i)
+      error <- c(error,coste(Yt,Y)[[1]])      
+    }
+  }
+}
+
+
+library(ggplot2)
+
+grafico = data.frame(Iteracion = iteracion,Error = error)
+
+ggplot(grafico,aes(iteracion, error)) + geom_line() + theme_minimal() +
+  labs(title = "Evolución del error de la Red Neuronal")
