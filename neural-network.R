@@ -155,3 +155,38 @@ backprop <- function(out, red, lr = 0.05){
   return(x)
   
 }
+
+red_neuronal <- function(red, X,Y, coste,lr = 0.05){
+  ## Front Prop
+  out = list()
+  out[[1]] <- append(list(matrix(0,ncol=4,nrow=1)), list(X))
+  
+  for(i in c(1:(length(red)))){
+    z = list((out[[length(out)]][[2]] %*% red[[i]]$W + red[[i]]$b))
+    a = list(red[[i]]$fun_act[[1]](z[[1]])[[1]])
+    out[[i+1]] <- append(z,a)
+  }
+  
+  
+  ## Backprop & Gradient Descent
+  delta <- list() 
+  
+  for (i in rev(1:length(red))){
+    z = out[[i+1]][[1]]
+    a = out[[i+1]][[2]]
+    
+    if(i == length(red)){
+      delta[[1]] <- coste(a,Y)[[2]] * red[[i]]$fun_act[[1]](a)[[2]]
+    } else{
+      delta <- list(delta[[1]] %*% W_temp * red[[i]]$fun_act[[1]](a)[[2]],delta)
+    }
+    
+    W_temp = t(red[[i]]$W)
+    
+    red[[i]]$b <- red[[i]]$b - mean(delta[[1]]) * lr
+    red[[i]]$W <- red[[i]]$W - t(out[[i]][[2]]) %*% delta[[1]] * lr
+    
+  }
+  return(out[[length(out)]][[2]])
+  
+}
