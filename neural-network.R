@@ -26,3 +26,27 @@ X <- as.matrix(datos[,1:2])
 Y <- as.matrix(datos[,3])
 
 rm(datos)
+
+# Red neuronal
+
+neurona <- setRefClass(
+  "neurona",
+  fields = list(
+    fun_act = "list",
+    numero_conexiones = "numeric",
+    numero_neuronas = "numeric",
+    W = "matrix",
+    b = "numeric"
+  ),
+  methods = list(
+    initialize = function(fun_act, numero_conexiones, numero_neuronas)
+    {
+      fun_act <<- fun_act
+      numero_conexiones <<- numero_conexiones
+      numero_neuronas <<- numero_neuronas
+      W <<- matrix(runif(numero_conexiones*numero_neuronas),
+                   nrow = numero_conexiones)
+      b <<- runif(numero_neuronas)
+    }
+  )
+)
