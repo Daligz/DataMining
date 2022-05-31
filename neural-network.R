@@ -50,3 +50,15 @@ neurona <- setRefClass(
     }
   )
 )
+
+# Funcion sigmoide
+
+sigmoid = function(x) {
+  y = list() 
+  y[[1]] <- 1 / (1 + exp(-x))
+  y[[2]] <- x * (1 - x)
+  return(y)
+}
+
+x <- seq(-5, 5, 0.01)
+plot(x, sigmoid(x)[[1]], col='blue')
