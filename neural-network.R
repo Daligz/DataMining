@@ -105,3 +105,12 @@ entrenar <- function(red, X,Y, coste){
 
 forward <- entrenar(red, X,Y, coste)
 head(forward[[4]][[2]])
+
+# Funcion de coste
+
+coste <- function(Yp,Yr){
+  y <- list()
+  y[[1]] <- mean((Yp-Yr)^2)
+  y[[2]] <- (Yp-Yr)
+  return(y)
+}
