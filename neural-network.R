@@ -129,3 +129,29 @@ for (i in rev(1:length(red))){
     delta <- list(delta[[1]] %*% t(red[[i]]$W) * red[[i]]$fun_act[[1]](a)[[2]],delta)
   }
 }
+
+backprop <- function(out, red, lr = 0.05){
+  
+  delta <- list() 
+  
+  for (i in rev(1:length(red))){
+    z = out[[i+1]][[1]]
+    a = out[[i+1]][[2]]
+    
+    if(i == length(red)){
+      delta[[1]] <- coste(a,Y)[[2]] * red[[i]]$fun_act[[1]](a)[[2]]
+    } else{
+      delta <- list(delta[[1]] %*% W_temp * red[[i]]$fun_act[[1]](a)[[2]],delta)
+    }
+    
+    W_temp = t(red[[i]]$W)
+    
+    red[[i]]$b <- red[[i]]$b - mean(delta[[1]]) * lr
+    red[[i]]$W <- red[[i]]$W - t(out[[i]][[2]]) %*% delta[[1]] * lr
+  }
+  x = list()
+  x[[1]] <- red
+  x[[2]] <- out[[length(out)]][[1]]
+  return(x)
+  
+}
