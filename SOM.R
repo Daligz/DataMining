@@ -14,3 +14,7 @@ rm(n_nuevos)
 set.seed(100)
 df <- na.omit(df) 
 Z <- scale(df,center=T,scale=T) # Estandarización
+
+# SOM
+carte <- som(Z, grid = somgrid(7,7,"hexagonal"), rlen = 1000)
+plot(carte, shape = "straight")
