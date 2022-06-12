@@ -15,3 +15,6 @@ ggplot(data = OJ, aes(x = Purchase, y = ..count.., fill = Purchase)) +
   scale_fill_manual(values = c("darkgreen", "orangered2"), 
                     labels = c("Citrus Hill", "Orange Juice")) +
   theme_bw() + theme(plot.title = element_text(hjust = 0.5))
+
+# Tabla frecuencias variable respuesta
+table(OJ$Purchase)
