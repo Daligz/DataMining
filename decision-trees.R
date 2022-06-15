@@ -28,3 +28,18 @@ modelo <- C5.0(Species ~ .,data = datos.entreno)
 summary(modelo) # Información sobre el modelo
 
 plot(modelo)
+
+# predicción
+prediccion <- predict(modelo,newdata=datos.test)
+
+# Matriz de confusión
+tabla <- table(prediccion, datos.test$Species)
+tabla
+
+# % correctamente clasificados
+100 * sum(diag(tabla)) / sum(tabla)
+
+# Sepal no interviene, por lo tanto no necesita un valor
+nuevo <- data.frame(Sepal.Length=NA,Sepal.Width=NA,Petal.Length=5,Petal.Width=1)
+a <-predict(modelo,nuevo, type = "prob")
+predict(modelo,nuevo)
