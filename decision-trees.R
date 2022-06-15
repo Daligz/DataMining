@@ -1,0 +1,30 @@
+# Carga el paquete específico del Árbol de clasificación C5.0
+#install.packages("C50", dependencies = TRUE)
+library(C50)
+
+# Carga de datos inicial, tipos de flores con diferentes caracteristicas 
+data(iris)
+datos <- iris
+View(datos)
+
+# Selección de una submuestra del 70% de los datos
+set.seed(101)
+tamano.total <- nrow(datos)
+tamano.entreno <- round(tamano.total*0.7)
+datos.indices <- sample(1:tamano.total , size=tamano.entreno)
+datos.entreno <- datos[datos.indices,]
+datos.test <- datos[-datos.indices,]
+
+
+# Acortamiento de nombres de setosa, versicolor y virginica
+especie <- vector(length = dim(datos)[1])
+especie[datos$Species=="setosa"] <-"se"
+especie[datos$Species=="virginica"] <-"vi"
+especie[datos$Species=="versicolor"] <-"ve"
+datos$Species <- factor(especie)
+
+# Ejecución del modelo de clasificación C5.0
+modelo <- C5.0(Species ~ .,data = datos.entreno)
+summary(modelo) # Información sobre el modelo
+
+plot(modelo)
