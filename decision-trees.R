@@ -1,3 +1,6 @@
+# Clasificar tipo de flor atendiendo a sus características físicas como pueden ser el 
+# ancho y alto de los pétalos y sépalos. (Usando el algoritmo C5.0)
+
 # Carga el paquete específico del Árbol de clasificación C5.0
 #install.packages("C50", dependencies = TRUE)
 library(C50)
@@ -39,7 +42,29 @@ tabla
 # % correctamente clasificados
 100 * sum(diag(tabla)) / sum(tabla)
 
+# Predicciones
+
 # Sepal no interviene, por lo tanto no necesita un valor
 nuevo <- data.frame(Sepal.Length=NA,Sepal.Width=NA,Petal.Length=5,Petal.Width=1)
+a <-predict(modelo,nuevo, type = "prob")
+predict(modelo,nuevo)
+
+# Resultado esperado: Versicolor
+nuevo <- data.frame(Sepal.Length=NA,Sepal.Width=NA,Petal.Length=2.2,Petal.Width=1.5)
+a <-predict(modelo,nuevo, type = "prob")
+predict(modelo,nuevo)
+
+# Resultado esperado: Virginica
+nuevo <- data.frame(Sepal.Length=NA,Sepal.Width=NA,Petal.Length=5.0,Petal.Width=0.5)
+a <-predict(modelo,nuevo, type = "prob")
+predict(modelo,nuevo)
+
+# Resultado esperado: Virginica
+nuevo <- data.frame(Sepal.Length=NA,Sepal.Width=NA,Petal.Length=2.0,Petal.Width=2.0)
+a <-predict(modelo,nuevo, type = "prob")
+predict(modelo,nuevo)
+
+# Resultado esperado: Setosa
+nuevo <- data.frame(Sepal.Length=NA,Sepal.Width=NA,Petal.Length=1.0,Petal.Width=2.0)
 a <-predict(modelo,nuevo, type = "prob")
 predict(modelo,nuevo)
