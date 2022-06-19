@@ -102,10 +102,7 @@ ui <- fluidPage(
     mainPanel(
       
       # Output: Verbatim text for data summary ----
-      verbatimTextOutput("summary"),
-      
-      # Output: HTML table with requested number of observations ----
-      tableOutput("view")
+      verbatimTextOutput("summary")
       
     )
   )
