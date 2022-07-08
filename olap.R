@@ -66,11 +66,8 @@ revenue_cube[c("Carlos","Diego"), ,]
 apply(revenue_cube, c("username", "total_next_points"),
       FUN=function(x) {return(sum(x, na.rm=TRUE))})
 
-apply(revenue_cube, c("username", "type", "total_next_points"), 
+apply(revenue_cube, c("username", "status"), 
       FUN=function(x) {return(sum(x, na.rm=TRUE))})
 
-apply(revenue_cube, c("username", "type"), 
-      FUN=function(x) {return(sum(x, na.rm=TRUE))})
-
-apply(revenue_cube, c("total_next_points", "status"),
+apply(revenue_cube, c("username", "status", "total_next_points"), 
       FUN=function(x) {return(sum(x, na.rm=TRUE))})
