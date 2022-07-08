@@ -46,3 +46,31 @@ gen_data <- function(no_of_recs) {
 gen_data_values <- gen_data(500)
 
 head(gen_data_values)
+
+# Construir un cubo
+revenue_cube <- 
+  tapply(gen_data_values$total_next_points, 
+         gen_data_values[,c("username", "status", "total_next_points")], 
+         FUN=function(x){return(sum(x))})
+
+# Mostrar el cubo
+revenue_cube
+
+dimnames(revenue_cube)
+
+# Slice
+revenue_cube["Carlos", ,]
+
+revenue_cube[c("Carlos","Diego"), ,]
+
+apply(revenue_cube, c("username", "total_next_points"),
+      FUN=function(x) {return(sum(x, na.rm=TRUE))})
+
+apply(revenue_cube, c("username", "type", "total_next_points"), 
+      FUN=function(x) {return(sum(x, na.rm=TRUE))})
+
+apply(revenue_cube, c("username", "type"), 
+      FUN=function(x) {return(sum(x, na.rm=TRUE))})
+
+apply(revenue_cube, c("total_next_points", "status"),
+      FUN=function(x) {return(sum(x, na.rm=TRUE))})
