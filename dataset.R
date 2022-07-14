@@ -43,3 +43,10 @@ boxplot(gen_data$Mes~gen_data$NombrePremio, data = gen_data)
 
 boxplot(gen_data$Anio~gen_data$NombrePremio, data = gen_data)
 
+library(corrplot)
+
+M = cor(gen_data)
+
+corrplot(M, method = 'number')
+corrplot(M, method = 'pie')
+corrplot(M, method = 'shade')
