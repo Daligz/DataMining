@@ -1,28 +1,28 @@
 pre_data <- data.frame(
   key = 1:10,
-  nombre = c("Lapiz", "Borrador", "Licuado", "Jarra", "Telefono", "Lapicero", "Libreta", "Colores", "Eco egg holder", "Television"),
-  valor = c(10, 20, 50, 120, 125, 175, 210, 350, 12, 129),
-  mes = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
-  anio = c(2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022)
+  NombrePremio = c("Lapiz", "Borrador", "Licuado", "Jarra", "Telefono", "Lapicero", "Libreta", "Colores", "Eco egg holder", "Television"),
+  Valor = c(10, 20, 50, 120, 125, 175, 210, 350, 12, 129),
+  Mes = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
+  Anio = c(2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022)
 )
 
 gen_data <- function(no_of_recs) {
   
-  nombre = sample(pre_data$nombre, no_of_recs, replace = T)
-  valor = sample(pre_data$valor, no_of_recs, replace = T)
-  mes = sample(pre_data$mes, no_of_recs, replace = T)
-  anio = sample(pre_data$anio, no_of_recs, replace = T)
+  NombrePremio = sample(pre_data$NombrePremio, no_of_recs, replace = T)
+  Valor = sample(pre_data$Valor, no_of_recs, replace = T)
+  Mes = sample(pre_data$Mes, no_of_recs, replace = T)
+  Anio = sample(pre_data$Anio, no_of_recs, replace = T)
   
-  datavalors <- data.frame(
-    nombre = nombre,
-    valor = valor,
-    mes = mes,
-    anio = anio
+  dataValors <- data.frame(
+    NombrePremio = NombrePremio,
+    Valor = Valor,
+    Mes = Mes,
+    Anio = Anio
   )
   
-  return(datavalors)
+  return(dataValors)
 }
 
-gen_data_valors <- gen_data(500)
+gen_data_Valors <- gen_data(500)
 
-head(gen_data_valors)
+head(gen_data_Valors)
