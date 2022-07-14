@@ -30,3 +30,9 @@ head(gen_data, n = 5)
 tail(gen_data, n = 5)
 
 summary(gen_data)
+
+str(gen_data)
+
+library(psych)
+
+describe(gen_data)
