@@ -1,6 +1,6 @@
 pre_data <- data.frame(
   key = 1:10,
-  NombrePremio = c("Lapiz", "Borrador", "Licuado", "Jarra", "Telefono", "Lapicero", "Libreta", "Colores", "Eco egg holder", "Television"),
+  NombrePremio = c("Lapiz", "Borrador", "Lapicera", "Jarra", "Telefono", "Lapicero", "Libreta", "Colores", "Eco egg holder", "Television"),
   Valor = c(10, 20, 50, 120, 125, 175, 210, 350, 12, 129),
   Mes = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
   Anio = c(2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022)
