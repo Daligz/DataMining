@@ -23,6 +23,10 @@ gen_data <- function(no_of_recs) {
   return(dataValors)
 }
 
-gen_data_Valors <- gen_data(500)
+gen_data <- gen_data(500)
 
-head(gen_data_Valors)
+head(gen_data, n = 5)
+
+tail(gen_data, n = 5)
+
+summary(gen_data)
