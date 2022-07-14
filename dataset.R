@@ -1,6 +1,11 @@
+NomPremio = c("Lapiz", "Borrador", "Lapicera", "Jarra", "Telefono", "Lapicero", "Libreta", "Colores", "Eco egg holder", "Television")
+
+NombrePremio <- factor(NomPremio)
+
+
 pre_data <- data.frame(
   key = 1:10,
-  NombrePremio = c("Lapiz", "Borrador", "Lapicera", "Jarra", "Telefono", "Lapicero", "Libreta", "Colores", "Eco egg holder", "Television"),
+  NombrePremio,
   Valor = c(10, 20, 50, 120, 125, 175, 210, 350, 12, 129),
   Mes = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
   Anio = c(2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022)
@@ -42,11 +47,3 @@ boxplot(gen_data$Mes~gen_data$Anio, data = gen_data)
 boxplot(gen_data$Mes~gen_data$NombrePremio, data = gen_data)
 
 boxplot(gen_data$Anio~gen_data$NombrePremio, data = gen_data)
-
-library(corrplot)
-
-M = cor(gen_data)
-
-corrplot(M, method = 'number')
-corrplot(M, method = 'pie')
-corrplot(M, method = 'shade')
