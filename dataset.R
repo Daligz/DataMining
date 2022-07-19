@@ -30,7 +30,7 @@ gen_data <- function(no_of_recs) {
   return(dataValors)
 }
 
-gen_data <- gen_data(500)
+gen_data <- gen_data(5000)
 
 head(gen_data, n = 5)
 
@@ -51,7 +51,7 @@ boxplot(gen_data$Mes~gen_data$NombrePremio, data = gen_data)
 boxplot(gen_data$Anio~gen_data$NombrePremio, data = gen_data)
 
 set.seed(2020)
-muestra       <- sample(1:20, 5)
+muestra       <- sample(1:5000, 2700)
 entrenamiento <- gen_data[muestra,]
 prueba        <- gen_data[-muestra,]
 
@@ -60,7 +60,7 @@ dim(prueba)[1]
 
 library(kknn)
 
-modelo <- train.kknn(NombrePremio ~ ., data = entrenamiento, kmax = 9)
+modelo <- train.kknn(NombrePremio ~ ., data = entrenamiento, ks = 5)
 modelo
 
 entre <- predict(modelo, entrenamiento[,-1])
@@ -70,27 +70,9 @@ tt
 precision <- (sum(diag(tt)))/sum(tt)
 precision
 
+pred    <- predict(modelo, prueba[,-1])
+table   <- table(prueba[,1],pred)
+table
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+clas    <- (sum(diag(table)))/sum(table)
+clas
