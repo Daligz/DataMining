@@ -13,8 +13,10 @@ pre_data <- data.frame(
 
 gen_data <- function(no_of_recs) {
   
-  NombrePremio = sample(pre_data$NombrePremio, no_of_recs, replace = T)
-  Valor = sample(pre_data$Valor, no_of_recs, replace = T)
+  key = sample(pre_data$key, no_of_recs, replace = T)
+  
+  NombrePremio = pre_data[key,]$NombrePremio
+  Valor = pre_data[key,]$Valor
   Mes = sample(pre_data$Mes, no_of_recs, replace = T)
   Anio = sample(pre_data$Anio, no_of_recs, replace = T)
   
