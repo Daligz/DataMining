@@ -49,3 +49,48 @@ boxplot(gen_data$Mes~gen_data$Anio, data = gen_data)
 boxplot(gen_data$Mes~gen_data$NombrePremio, data = gen_data)
 
 boxplot(gen_data$Anio~gen_data$NombrePremio, data = gen_data)
+
+set.seed(2020)
+muestra       <- sample(1:20, 5)
+entrenamiento <- gen_data[muestra,]
+prueba        <- gen_data[-muestra,]
+
+dim(entrenamiento)[1]
+dim(prueba)[1]
+
+library(kknn)
+
+modelo <- train.kknn(NombrePremio ~ ., data = entrenamiento, kmax = 9)
+modelo
+
+entre <- predict(modelo, entrenamiento[,-1])
+tt  <- table(entrenamiento[,1],entre)
+tt
+
+precision <- (sum(diag(tt)))/sum(tt)
+precision
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
