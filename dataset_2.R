@@ -43,6 +43,18 @@ tail(gen_data, n = 5)
 
 str(gen_data)
 
+library(psych)
+
+describe(gen_data)
+
+summary(gen_data)
+
+boxplot(gen_data$Mes~gen_data$Anio, data = gen_data)
+
+boxplot(gen_data$Mes~gen_data$NombrePremio, data = gen_data)
+
+boxplot(gen_data$Anio~gen_data$NombrePremio, data = gen_data)
+
 set.seed(2020)
 muestra       <- sample(1:5000, 2700)
 entrenamiento <- gen_data[muestra,]
