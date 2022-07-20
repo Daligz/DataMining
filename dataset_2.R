@@ -63,7 +63,6 @@ prueba        <- gen_data[-muestra,]
 dim(entrenamiento)[1]
 dim(prueba)[1]
 
-
 tester <- data.frame(
   Key = c(2, 8), # 2 = Borrador, 8 = Colores
   Valor = c(20, 350),
