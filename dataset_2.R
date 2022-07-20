@@ -6,7 +6,7 @@ NomPremio = c("Lapiz", "Borrador", "Lapicera", "Jarra", "Telefono", "Lapicero", 
 NombrePremio <- factor(NomPremio)
 
 pre_data <- data.frame(
-  key = 1:10,
+  Key = 1:10,
   NombrePremio,
   Valor = c(10, 20, 50, 120, 125, 175, 210, 350, 12, 129),
   Mes = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
@@ -15,16 +15,16 @@ pre_data <- data.frame(
 
 gen_data <- function(no_of_recs) {
   
-  key = sample(pre_data$key, no_of_recs, replace = T)
+  Key = sample(pre_data$Key, no_of_recs, replace = T)
   
-  NombrePremio = pre_data[key,]$NombrePremio
-  Valor = pre_data[key,]$Valor
+  NombrePremio = pre_data[Key,]$NombrePremio
+  Valor = pre_data[Key,]$Valor
   Mes = sample(pre_data$Mes, no_of_recs, replace = T)
   Anio = sample(pre_data$Anio, no_of_recs, replace = T)
   Ventas = sample(ventas, no_of_recs, replace = T)
   
   dataValors <- data.frame(
-    key = key,
+    Key = Key,
     NombrePremio = NombrePremio,
     Ventas = Ventas,
     Valor = Valor,
@@ -65,7 +65,7 @@ dim(prueba)[1]
 
 
 tester <- data.frame(
-  key = c(2, 8), # 2 = Borrador, 8 = Colores
+  Key = c(2, 8), # 2 = Borrador, 8 = Colores
   Valor = c(20, 350),
   Mes = c(10, 5),
   Anio = c(2016, 2022)
