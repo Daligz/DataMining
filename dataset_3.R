@@ -25,9 +25,7 @@ gen_data <- function(no_of_recs) {
   
   dataValors <- data.frame(
     Key = Key,
-    NombrePremio = NombrePremio,
     Ventas = Ventas,
-    Valor = Valor,
     Mes = Mes,
     Anio = Anio
   )
@@ -37,24 +35,6 @@ gen_data <- function(no_of_recs) {
 
 gen_data <- gen_data(5000)
 
-head(gen_data, n = 5)
-
-tail(gen_data, n = 5)
-
-str(gen_data)
-
-library(psych)
-
-describe(gen_data)
-
-summary(gen_data)
-
-boxplot(gen_data$Mes~gen_data$Anio, data = gen_data)
-
-boxplot(gen_data$Mes~gen_data$NombrePremio, data = gen_data)
-
-boxplot(gen_data$Anio~gen_data$NombrePremio, data = gen_data)
-
 set.seed(2020)
 muestra       <- sample(1:5000, 2700)
 entrenamiento <- gen_data[muestra,]
@@ -63,30 +43,21 @@ prueba        <- gen_data[-muestra,]
 dim(entrenamiento)[1]
 dim(prueba)[1]
 
-library(class)
-modelo2 <- knn(train = entrenamiento[,-2:-3], test=prueba[,-2:-3], cl = entrenamiento$Ventas, k=5)
-modelo2
+library(kknn)
 
-accuracy2 = sum(modelo2 == prueba$Ventas)/length(prueba$Ventas)
-accuracy2
-
-
-xtab2 = table(modelo2, prueba$Ventas)
-print(xtab2)
-
-tester <- data.frame(
-  Key = c(2, 8, 5), # 2 = Borrador, 8 = Colores, 5 = Telefono
-  Valor = c(20, 350, 120),
-  Mes = c(10, 5, 2),
-  Anio = c(2016, 2022, 2015)
-)
-
-library(class)
-modelo <- knn(train = entrenamiento[,-2:-3], test=tester, cl = entrenamiento$Ventas, k=5)
+modelo <- train.kknn(Ventas ~ ., data = entrenamiento, ks = 5)
 modelo
 
-accuracy = sum(modelo == entrenamiento$Ventas)/length(entrenamiento$Ventas)
-accuracy
+entre <- predict(modelo, entrenamiento[,-2])
+tt  <- table(entrenamiento[,2],entre)
+tt
 
-xtab = table(modelo, ventas)
-print(xtab)
+precision <- (sum(diag(tt)))/sum(tt)
+precision
+
+pred    <- predict(modelo, prueba[,-2])
+table   <- table(prueba[,2],pred)
+table
+
+clas    <- (sum(diag(table)))/sum(table)
+clas
