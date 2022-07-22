@@ -1,42 +1,14 @@
-# 1 = Altas, 2 = Medias, 3 = Bajas
-ventas = factor(c(1, 2, 3))
+library(RMySQL)
+library(DBI)
+database<-dbConnect(MySQL(), user = "root", host = "localhost", password = "", dbname = "dali_greenwaste")
+gen_data<-dbGetQuery(database, statement = "Select * From dataset")[,-1]
+on.exit(dbDisconnect(DB))
+head(gen_data)
 
-NomPremio = c("Lapiz", "Borrador", "Lapicera", "Jarra", "Telefono", "Lapicero", "Libreta", "Colores", "Eco egg holder", "Television")
-
-NombrePremio <- factor(NomPremio)
-
-pre_data <- data.frame(
-  Key = 1:10,
-  NombrePremio,
-  Valor = c(10, 20, 50, 120, 125, 175, 210, 350, 12, 129),
-  Mes = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
-  Anio = c(2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022)
-)
-
-gen_data <- function(no_of_recs) {
-  
-  Key = sample(pre_data$Key, no_of_recs, replace = T)
-  
-  NombrePremio = pre_data[Key,]$NombrePremio
-  Valor = pre_data[Key,]$Valor
-  Mes = sample(pre_data$Mes, no_of_recs, replace = T)
-  Anio = sample(pre_data$Anio, no_of_recs, replace = T)
-  Ventas = sample(ventas, no_of_recs, replace = T)
-  
-  dataValors <- data.frame(
-    Key = Key,
-    Ventas = Ventas,
-    Mes = Mes,
-    Anio = Anio
-  )
-  
-  return(dataValors)
-}
-
-gen_data <- gen_data(5000)
+# Ventas : 1 = Altas, 2 = Medias, 3 = Bajas
 
 set.seed(2020)
-muestra       <- sample(1:5000, 2700)
+muestra       <- sample(1:1081, 500)
 entrenamiento <- gen_data[muestra,]
 prueba        <- gen_data[-muestra,]
 
@@ -45,19 +17,21 @@ dim(prueba)[1]
 
 library(kknn)
 
-modelo <- train.kknn(Ventas ~ ., data = entrenamiento, ks = 5)
+modelo <- train.kknn(entrenamiento$ventas ~ ., data = entrenamiento, ks = 1)
 modelo
 
-entre <- predict(modelo, entrenamiento[,-2])
-tt  <- table(entrenamiento[,2],entre)
+entre <- predict(modelo, entrenamiento)
+tt  <- table(entre, entrenamiento$ventas)
 tt
 
 precision <- (sum(diag(tt)))/sum(tt)
 precision
 
-pred    <- predict(modelo, prueba[,-2])
-table   <- table(prueba[,2],pred)
+pred    <- predict(modelo, prueba)
+table   <- table(pred, prueba$ventas)
 table
 
 clas    <- (sum(diag(table)))/sum(table)
 clas
+
+plot(entrenamiento,main="Resdf",col=entrenamiento$anio,pch=19)
