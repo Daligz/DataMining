@@ -1,9 +1,12 @@
+# 1 = Altas, 2 = Medias, 3 = Bajas
+ventas = factor(c(1, 2, 3))
+
 NomPremio = c("Lapiz", "Borrador", "Lapicera", "Jarra", "Telefono", "Lapicero", "Libreta", "Colores", "Eco egg holder", "Television")
 
 NombrePremio <- factor(NomPremio)
 
 pre_data <- data.frame(
-  key = 1:10,
+  Key = 1:10,
   NombrePremio,
   Valor = c(10, 20, 50, 120, 125, 175, 210, 350, 12, 129),
   Mes = c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10),
@@ -12,15 +15,18 @@ pre_data <- data.frame(
 
 gen_data <- function(no_of_recs) {
   
-  key = sample(pre_data$key, no_of_recs, replace = T)
+  Key = sample(pre_data$Key, no_of_recs, replace = T)
   
-  NombrePremio = pre_data[key,]$NombrePremio
-  Valor = pre_data[key,]$Valor
+  NombrePremio = pre_data[Key,]$NombrePremio
+  Valor = pre_data[Key,]$Valor
   Mes = sample(pre_data$Mes, no_of_recs, replace = T)
   Anio = sample(pre_data$Anio, no_of_recs, replace = T)
+  Ventas = sample(ventas, no_of_recs, replace = T)
   
   dataValors <- data.frame(
+    Key = Key,
     NombrePremio = NombrePremio,
+    Ventas = Ventas,
     Valor = Valor,
     Mes = Mes,
     Anio = Anio
@@ -57,21 +63,30 @@ prueba        <- gen_data[-muestra,]
 dim(entrenamiento)[1]
 dim(prueba)[1]
 
-library(kknn)
+library(class)
+modelo2 <- knn(train = entrenamiento[,-2:-3], test=prueba[,-2:-3], cl = entrenamiento$Ventas, k=5)
+modelo2
 
-modelo <- train.kknn(NombrePremio ~ ., data = entrenamiento, ks = 5)
+accuracy2 = sum(modelo2 == prueba$Ventas)/length(prueba$Ventas)
+accuracy2
+
+
+xtab2 = table(modelo2, prueba$Ventas)
+print(xtab2)
+
+tester <- data.frame(
+  Key = c(2, 8, 5), # 2 = Borrador, 8 = Colores, 5 = Telefono
+  Valor = c(20, 350, 120),
+  Mes = c(10, 5, 2),
+  Anio = c(2016, 2022, 2015)
+)
+
+library(class)
+modelo <- knn(train = entrenamiento[,-2:-3], test=tester, cl = entrenamiento$Ventas, k=5)
 modelo
 
-entre <- predict(modelo, entrenamiento[,-1])
-tt  <- table(entrenamiento[,1],entre)
-tt
+accuracy = sum(modelo == entrenamiento$Ventas)/length(entrenamiento$Ventas)
+accuracy
 
-precision <- (sum(diag(tt)))/sum(tt)
-precision
-
-pred    <- predict(modelo, prueba[,-1])
-table   <- table(prueba[,1],pred)
-table
-
-clas    <- (sum(diag(table)))/sum(table)
-clas
+xtab = table(modelo, ventas)
+print(xtab)
